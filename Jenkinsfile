@@ -6,8 +6,8 @@ pipeline {
       GOOGLE_APPLICATION_CREDENTIALS = credentials('gcp-deployer')
       PROJECT_ID = 'level-ward-423317-j3'
       VERSION = "${env.BUILD_NUMBER}"
-      DEPLOYMENT_FILE_BACKEND  = 'k8s/backend-deployment.yml'
-      SERVICE_FILE_BACKEND  = 'k8s/backend-service.yml'
+      DEPLOYMENT_FILE_BACKEND  = 'k8s/frontend-todolist-deployment.yml'
+      SERVICE_FILE_BACKEND  = 'k8s/frontend-todolist-service.yml'
       MYSQL_FILE_DEPLOYMENT = 'k8s/mysql-deployment.yml'
       MYSQL_FILE_SERVICE = 'k8s/mysql-service.yml'
       MYSQL_FILE_PVC = 'k8s/mysql-pvc.yml'
@@ -36,7 +36,7 @@ pipeline {
       }
     }
     stage('Build Docker Images') {
-      steps {sh "docker build -t ${IMAGE_NAME_BACKEND}:latest ./api -f ./api/Dockerfile --network=host"
+      steps {sh "docker build -t ${IMAGE_NAME_BACKEND}:latest .  -f Dockerfile --network=host"
       }
     }
     stage('Tag Docker Images') {
